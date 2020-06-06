@@ -1,6 +1,8 @@
 import 'package:bomb_bodies/Features/BeforeLogin/BeforeLogin.dart';
 import 'package:flutter/material.dart';
 
+import 'Features/Splash/Splash.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BeforeLogin(),
+      home: Splash(),
     );
   }
 }
