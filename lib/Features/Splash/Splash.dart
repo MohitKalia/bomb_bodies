@@ -37,18 +37,13 @@ class SplashState extends State<Splash> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.center,
-                  child: new Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      new CircleAvatar(
+                    child:  CircleAvatar(
                         backgroundColor: Colors.transparent,
                         child: Container(
                           child: Image.asset("assets/images/logo.png"),
                         ),
                         radius: 110,
-                      )
-                    ],
-                  ),
+                      ),
                 ),
               ],
             )
