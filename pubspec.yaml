@@ -24,6 +24,7 @@ dependencies:
   shared_preferences: ^0.5.7+3
   intl: ^0.16.1
   intro_slider: ^2.3.1
+  video_player: ^0.10.11+1
 
 dev_dependencies:
   flutter_test:
@@ -35,11 +36,16 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   uses-material-design: true
   assets:
+   - assets/images/layer.png
+   - assets/images/layer1.png
+   - assets/images/layer2.png
+   - assets/images/layer3.png
    - assets/images/splash.png
    - assets/images/logo.png
+   - assets/images/header.png
+   - assets/images/workout.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

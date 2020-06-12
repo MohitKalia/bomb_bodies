@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bomb_bodies/BaseUtils/Colour.dart';
 import 'package:bomb_bodies/Features/Home/HomePresenter.dart';
 import 'package:bomb_bodies/Features/Home/HomeRowItems.dart';
 import 'package:bomb_bodies/Features/Home/HomeView.dart';
@@ -25,21 +26,22 @@ class HomeState extends State<Home> implements HomeView {
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Center(
             child: Text(
               'Programs & Daily Workouts',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, color:
+              Colors.black),
             )),
         elevation: 0,
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10, 5, 10, 1),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
                 // use stack feature
                 alignment: Alignment.topLeft,
                 padding:
@@ -49,7 +51,7 @@ class HomeState extends State<Home> implements HomeView {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(
-                        'assets/images/headder.png',
+                        'assets/images/header.png',
                       ),
                       fit: BoxFit.fill),
                 ),
@@ -98,7 +100,7 @@ class HomeState extends State<Home> implements HomeView {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Daily Workouts",
+                    "   Daily Workouts",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -123,7 +125,7 @@ class HomeState extends State<Home> implements HomeView {
               Expanded(
                 child: ListView.builder(
                     physics: AlwaysScrollableScrollPhysics(),
-                    itemCount: 0,
+                    itemCount: 4,
                     itemBuilder: (BuildContext ctx, int index) {
                       return HomeRowItems(index);
                     }),
@@ -131,7 +133,6 @@ class HomeState extends State<Home> implements HomeView {
             ],
           ),
         ),
-      ),
     );
   }
 
