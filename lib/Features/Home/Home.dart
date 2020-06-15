@@ -1,5 +1,4 @@
-import 'dart:async';
-import 'package:bomb_bodies/BaseUtils/Colour.dart';
+
 import 'package:bomb_bodies/Features/Home/HomePresenter.dart';
 import 'package:bomb_bodies/Features/Home/HomeRowItems.dart';
 import 'package:bomb_bodies/Features/Home/HomeView.dart';
@@ -12,6 +11,7 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> implements HomeView {
   HomePresenter presenter;
+  List workoutList = [];
 
   @override
   void initState() {
@@ -143,4 +143,11 @@ class HomeState extends State<Home> implements HomeView {
 
   @override
   bool showLoader;
+
+  @override
+  onResponse(val) {
+    workoutList.clear();
+    workoutList.add(val);
+    print(workoutList);
+  }
 }
