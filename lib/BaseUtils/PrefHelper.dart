@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefHelper {
@@ -19,14 +21,14 @@ class PrefHelper {
   static final String sHouseNo = "sHouseNo";
   static final String sStreetName = "sStreetName";
 
-  void setDeviceId(String deviceId) async {
+  void setDeviceId(deviceId) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString(sDeviceId, deviceId);
+    pref.setInt(sDeviceId, deviceId);
   }
 
-  Future<String> getDeviceId() async {
+  Future<int> getDeviceId() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    return pref.getString(sDeviceId);
+    return pref.getInt(sDeviceId);
   }
 
 
@@ -193,9 +195,9 @@ class PrefHelper {
 
   Future<String> logout() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    String deviceId = await getDeviceId();
+    //String deviceId = await getDeviceId();
     pref.clear();
-    setDeviceId(deviceId);
+    //setDeviceId(deviceId);
     return "";
   }
 

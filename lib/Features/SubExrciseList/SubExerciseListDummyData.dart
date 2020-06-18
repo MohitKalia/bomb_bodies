@@ -39,7 +39,5 @@ const SUBEXERCISEListDUMMYDATA = const [
       imageUrl: '10 reps', sets: "3 Sets of supersets"),
   SubExerciseListDummyModel(
       exercise: "Seated hip abductions", day: 'assets/images/user5.png',
-      imageUrl: ''
-      '10 reps'
-      'dumbblles', sets: "3 Sets of supersets"),
+      imageUrl: '10 reps', sets: "3 Sets of supersets"),
 ];

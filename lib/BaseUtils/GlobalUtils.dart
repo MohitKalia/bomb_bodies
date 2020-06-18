@@ -47,6 +47,37 @@ class GlobalUtils {
     );
   }
 
+  // user defined function
+  static void exitExercise(context) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Bomb Bodies"),
+          content: new Text("Are you sure you want to exitexercise"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   static Future showDateDialog(BuildContext context, {res}) async {
     var today = DateTime.now();
     final DateTime picked = await showDatePicker(

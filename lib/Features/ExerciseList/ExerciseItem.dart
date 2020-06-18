@@ -3,12 +3,17 @@ import 'package:bomb_bodies/Features/ExerciseDetails/SubExercise.dart';
 import 'package:bomb_bodies/Features/ExerciseList/ExerciseDummyData.dart';
 import 'package:flutter/material.dart';
 
-class ExerciseItem extends StatelessWidget {
+class ExerciseItem extends StatefulWidget {
   final height, width;
   int index;
 
   ExerciseItem(this.height, this.width, this.index);
 
+  @override
+  ExerciseItemS createState() => ExerciseItemS();
+}
+
+class ExerciseItemS extends State<ExerciseItem> {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
@@ -16,39 +21,35 @@ class ExerciseItem extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 7),
         padding: EdgeInsets.symmetric(vertical: 22),
         width: double.infinity,
-        height: height * 0.18,
+        height: widget.height * 0.18,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
             shape: BoxShape.rectangle,
-            border: Border.all(
-                color: Colors.lightBlueAccent.withOpacity(0.1), width: 2.1)),
+            border: Border.all(color: Colors.lightBlueAccent.withOpacity(0.1), width: 2.1)),
         child: Row(
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(right: 10),
               alignment: Alignment.centerLeft,
-              width: width * 0.20,
+              width: widget.width * 0.20,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(EXERCISEDUMMYDATA[index].day),
-                      fit: BoxFit.fill),
+                      image: AssetImage(EXERCISEDUMMYDATA[widget.index].day), fit: BoxFit.fill),
                   borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(100),
-                      bottomRight: Radius.circular(100))),
+                      topRight: Radius.circular(100), bottomRight: Radius.circular(100))),
             ),
             Container(
               alignment: Alignment.centerLeft,
               decoration: BoxDecoration(
                   color: Colors.grey[100],
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(100),
-                      bottomLeft: Radius.circular(100))),
+                      topLeft: Radius.circular(100), bottomLeft: Radius.circular(100))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    width: width - 137,
+                    width: widget.width - 137,
                     padding: EdgeInsets.fromLTRB(20, 6, 10, 6),
                     //color: Colors.green,
                     child: Column(
@@ -57,16 +58,14 @@ class ExerciseItem extends StatelessWidget {
                       children: <Widget>[
                         Container(
                           child: Text(
-                            EXERCISEDUMMYDATA[index].exercise,
+                            EXERCISEDUMMYDATA[widget.index].exercise,
                             style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                           margin: EdgeInsets.only(bottom: 3),
                         ),
                         Text(
-                          EXERCISEDUMMYDATA[index].imageUrl,
+                          EXERCISEDUMMYDATA[widget.index].imageUrl,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           softWrap: true,
@@ -96,10 +95,12 @@ class ExerciseItem extends StatelessWidget {
       ),
       color: Colors.white,
       padding: EdgeInsets.all(5),
-      onPressed: (){if (index == 0) {
-        Navigator.of(context).push(new MaterialPageRoute(
-            builder: (BuildContext context) => SubExercise()));
-      }},
+      onPressed: () {
+        if (widget.index == 0) {
+          Navigator.of(context)
+              .push(new MaterialPageRoute(builder: (BuildContext context) => SubExercise()));
+        }
+      },
     );
   }
 }

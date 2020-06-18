@@ -1,7 +1,5 @@
-import 'package:bomb_bodies/BaseUtils/Colour.dart';
 import 'package:bomb_bodies/Features/ExerciseDetails/SubExercisePresenter.dart';
 import 'package:bomb_bodies/Features/ExerciseDetails/SubExerciseView.dart';
-import 'package:bomb_bodies/Features/StartExercise/VideoScreen.dart';
 import 'package:bomb_bodies/Features/SubExrciseList/SubExerciseList.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,21 +8,25 @@ import 'package:flutter/widgets.dart';
 
 import 'SubExerciseItem.dart';
 
-class SubExercise extends StatelessWidget implements SubExerciseView {
+class SubExercise extends StatefulWidget {
+  @override
+  SubExerciseS createState() => SubExerciseS();
+}
+
+class SubExerciseS extends State<SubExercise> implements SubExerciseView {
   SubExercisePresenter presenter;
 
   @override
-  Widget build(BuildContext context) {
-    presenter = SubExercisePresenter();
+  void initState() {
+    super.initState();
+    presenter = new SubExercisePresenter();
     presenter.setV(this);
-    screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -39,24 +41,24 @@ class SubExercise extends StatelessWidget implements SubExerciseView {
                   margin: EdgeInsets.only(bottom: 25),
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/images/header3.png'),
-                          fit: BoxFit.fill),
-                      borderRadius:
-                      BorderRadius.vertical(bottom: Radius.circular(40))),
+                          image: AssetImage('assets/images/header3.png'), fit: BoxFit.fill),
+                      borderRadius: BorderRadius.vertical(bottom: Radius.circular(40))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Container(margin: EdgeInsets.only(top: 25),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.keyboard_backspace,
-                          size: 20,
-                          color: Colors.white,
+                      Container(
+                        margin: EdgeInsets.only(top: 25),
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.keyboard_backspace,
+                            size: 20,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,103 +79,6 @@ class SubExercise extends StatelessWidget implements SubExerciseView {
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                 ),
-                              /*  Row(
-                                  children: <Widget>[
-                                    Container(
-                                      width: screenWidth * 0.15,
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              'Leg',
-                                              style: TextStyle(
-                                                  fontSize: 13, color: Colors
-                                                  .white),
-                                              textAlign: TextAlign.start,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                          Container(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                'Type',
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: Colors.white),
-                                                textAlign: TextAlign.start,
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      width: screenWidth * 0.15,
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              '10',
-                                              style: TextStyle(
-                                                  fontSize: 13, color: Colors
-                                                  .white),
-                                              textAlign: TextAlign.start,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                          Container(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                'Sets',
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: Colors.white),
-                                                textAlign: TextAlign.start,
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      width: screenWidth * 0.15,
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              'Rep.',
-                                              style: TextStyle(
-                                                  fontSize: 13, color: Colors
-                                                  .white),
-                                              textAlign: TextAlign.start,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                          Container(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                'Based',
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: Colors.white),
-                                                textAlign: TextAlign.start,
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),*/
                                 Container(
                                   child: Text(
                                     'Necessary Equipments:',
@@ -189,9 +94,8 @@ class SubExercise extends StatelessWidget implements SubExerciseView {
                                 ),
                                 Text(
                                   'Barbell, bentch, '
-                                      'dumbblles',
-                                  style: TextStyle(
-                                      fontSize: 10, color: Colors.white),
+                                  'dumbblles',
+                                  style: TextStyle(fontSize: 10, color: Colors.white),
                                   textAlign: TextAlign.start,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -206,20 +110,18 @@ class SubExercise extends StatelessWidget implements SubExerciseView {
                 ),
                 RaisedButton(
                   onPressed: () {
+                    print("clicked");
                     Navigator.of(context).push(new MaterialPageRoute(
                         builder: (BuildContext context) => SubExerciseList()));
                   },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   padding: EdgeInsets.symmetric(
                       horizontal: screenWidth > 400 ? 60 : 40,
                       vertical: screenWidth > 400 ? 10 : 5),
                   color: Colors.pink[300],
                   child: Text(
                     'Start Workout',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: screenWidth > 400 ? 20 : 15),
+                    style: TextStyle(color: Colors.white, fontSize: screenWidth > 400 ? 20 : 15),
                   ),
                 )
               ],
@@ -236,10 +138,7 @@ class SubExercise extends StatelessWidget implements SubExerciseView {
               children: [
                 Text(
                   "Exercises",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18),
+                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 SizedBox(
                   width: 5,
