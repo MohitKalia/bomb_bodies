@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:bomb_bodies/BaseUtils/Colour.dart';
+import 'package:bomb_bodies/Features/WorkoutCompleted/WorkoutCompleted.dart';
+import 'package:bomb_bodies/Widgets/ButtonRC.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -47,16 +50,75 @@ class GlobalUtils {
     );
   }
 
+  static exitExercise(context, name) {
+    Dialog errorDialog = Dialog(
+      backgroundColor: primaryColors['primary'],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      //this right here
+      child: Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        height: 370,
+        width: MediaQuery.of(context).size.width - 100,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'End workout?',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 20, bottom: 25),
+              child: Text(
+                'Are you sure you want to end your Workout?',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width - 170,
+              child: ButtonRC("Complete workout", () {
+                Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (BuildContext context) => WorkoutCompleted(name)));
+              }, Colors.white, primaryColors['primary']),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width - 170,
+              margin: EdgeInsets.symmetric(vertical: 15),
+              child: ButtonRC("Quit workout", () {
+                for (int i = 0; i < 5; i++) {
+                  Navigator.of(context).pop();
+                }
+              }, Colors.grey, Colors.white),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Dismiss',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+    showDialog(context: context, builder: (BuildContext context) => errorDialog);
+  }
+
   // user defined function
-  static void exitExercise(context) {
+  static void exitExercise1(context) {
     // flutter defined function
     showDialog(
       context: context,
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Bomb Bodies"),
-          content: new Text("Are you sure you want to exitexercise"),
+          title: new Text("Exit workout"),
+          content: new Text("Are you sure you want to exit workout?"),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(

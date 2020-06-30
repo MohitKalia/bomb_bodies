@@ -1,4 +1,5 @@
 import 'package:bomb_bodies/BaseUtils/Colour.dart';
+import 'package:bomb_bodies/BaseUtils/PrefHelper.dart';
 import 'package:bomb_bodies/Features/ExerciseDetails/SubExercise.dart';
 import 'package:bomb_bodies/Features/ExerciseList/ExerciseDummyData.dart';
 import 'package:flutter/material.dart';
@@ -97,6 +98,7 @@ class ExerciseItemS extends State<ExerciseItem> {
       padding: EdgeInsets.all(5),
       onPressed: () {
         if (widget.index == 0) {
+          PrefHelper().setFirstName(EXERCISEDUMMYDATA[widget.index].exercise);
           Navigator.of(context)
               .push(new MaterialPageRoute(builder: (BuildContext context) => SubExercise()));
         }

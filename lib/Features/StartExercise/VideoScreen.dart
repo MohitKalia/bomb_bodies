@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bomb_bodies/BaseUtils/Colour.dart';
 import 'package:bomb_bodies/BaseUtils/GlobalUtils.dart';
+import 'package:bomb_bodies/BaseUtils/PrefHelper.dart';
 import 'package:bomb_bodies/Features/ExerciseList/ExerciseDummyData.dart';
 import 'package:bomb_bodies/Features/SubExrciseList/SubExerciseListDummyData.dart';
 import 'package:bomb_bodies/Widgets/ButtonRC.dart';
@@ -23,6 +24,8 @@ class VideoScreenState extends State<VideoScreen> {
   int selectedExercise = 0;
   SubExerciseListDummyModel m, next;
 
+  String selectedIndex;
+
   @override
   void initState() {
     _playerController = VideoPlayerController.network(
@@ -34,6 +37,7 @@ class VideoScreenState extends State<VideoScreen> {
       _playerController.play();
     });
     setData();
+    getSelectedIndex();
     super.initState();
   }
 
@@ -90,7 +94,7 @@ class VideoScreenState extends State<VideoScreen> {
           ),
           Container(
             margin: EdgeInsets.only(bottom: 10),
-            child: Text(m.exercise),
+            child: Text(m.exercise+ " (" + m.imageUrl + ")"),
           ),
           Row(
             children: <Widget>[
@@ -112,7 +116,9 @@ class VideoScreenState extends State<VideoScreen> {
                   ),
                 ),
               ),
-              Container(
+              m.imageUrl.isEmpty? Container(
+                width: MediaQuery.of(context).size.width * 0.33 - 12,
+                ) : Container(
                 child: RaisedButton(
                   padding: EdgeInsets.all(5),
                   onPressed: () {
@@ -136,7 +142,7 @@ class VideoScreenState extends State<VideoScreen> {
                 child: RaisedButton(
                   padding: EdgeInsets.all(5),
                   onPressed: () {
-                    if (widget.data.length > selectedExercise + 1) selectedExercise++;
+                    if (widget.data.length > selectedExercise) selectedExercise++;
                     if (_start != 90) _timer.cancel();
                     _start = 90;
                     setData();
@@ -166,7 +172,7 @@ class VideoScreenState extends State<VideoScreen> {
                   alignment: Alignment.centerLeft,
                   width: MediaQuery.of(context).size.width * 0.20,
                   child: Text(next.day == "Up next" ? "   " + next.day : ""),
-                  decoration: BoxDecoration(
+                  decoration: next.day == "Up next" ? BoxDecoration() : BoxDecoration(
                       image: DecorationImage(image: AssetImage(next.day), fit: BoxFit.fill),
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(100), bottomRight: Radius.circular(100))),
@@ -183,7 +189,14 @@ class VideoScreenState extends State<VideoScreen> {
                       Container(
                         width: MediaQuery.of(context).size.width - 97,
                         padding: EdgeInsets.fromLTRB(20, 6, 10, 6), //color: Colors.green,
-                        child: Column(
+                        child: next.imageUrl.isEmpty ? Container(
+                          child: Text(
+                            next.exercise,
+                            style: TextStyle(
+                                fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
+                          ),
+                          margin: EdgeInsets.only(bottom: 3),
+                        ) : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
@@ -195,8 +208,7 @@ class VideoScreenState extends State<VideoScreen> {
                               ),
                               margin: EdgeInsets.only(bottom: 3),
                             ),
-                            Text(
-                              next.imageUrl.isEmpty ? "" : EXERCISEDUMMYDATA[0].imageUrl,
+                            Text(EXERCISEDUMMYDATA[0].imageUrl,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               softWrap: true,
@@ -215,7 +227,7 @@ class VideoScreenState extends State<VideoScreen> {
             alignment: Alignment.center,
             width: MediaQuery.of(context).size.width - 0.20,
             child: ButtonRC("Exit workout", () {
-              GlobalUtils.exitExercise(context);
+              GlobalUtils.exitExercise(context, selectedIndex);
             }, Colors.white70, Colors.red),
           )
         ],
@@ -256,6 +268,11 @@ class VideoScreenState extends State<VideoScreen> {
       m = widget.data[selectedExercise];
       next = widget.data[selectedExercise + 1];
       if (m.imageUrl.isEmpty) startTimer();
+    });
+  } void getSelectedIndex() async {
+    selectedIndex = await PrefHelper().getFirstName();
+    setState(() {
+      build(context);
     });
   }
 }

@@ -110,7 +110,6 @@ class SubExerciseS extends State<SubExercise> implements SubExerciseView {
                 ),
                 RaisedButton(
                   onPressed: () {
-                    print("clicked");
                     Navigator.of(context).push(new MaterialPageRoute(
                         builder: (BuildContext context) => SubExerciseList()));
                   },

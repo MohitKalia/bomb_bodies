@@ -1,6 +1,7 @@
 import 'package:bomb_bodies/BaseUtils/PrefHelper.dart';
 import 'package:bomb_bodies/Features/ExerciseDetails/SubExercisePresenter.dart';
 import 'package:bomb_bodies/Features/ExerciseDetails/SubExerciseView.dart';
+import 'package:bomb_bodies/Features/SubExrciseList/SubExerciseListDummyData.dart';
 import 'package:bomb_bodies/Features/SubExrciseList/SubListExerciseItem.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -70,9 +71,9 @@ class SubExerciseListS extends State<SubExerciseList> implements SubExerciseView
           Expanded(
             child: ListView.builder(
                 physics: AlwaysScrollableScrollPhysics(),
-                itemCount: 6,
+                itemCount: SUBEXERCISEListDUMMYDATA.length,
                 itemBuilder: (BuildContext ctx, int index) {
-                  return SubListExerciseItem(screenHeight, screenWidth, index, selectedIndex);
+                  return SubListExerciseItem(screenHeight, screenWidth, index, selectedIndex, onSubmit);
                 }),
           ),
         ],
@@ -91,6 +92,14 @@ class SubExerciseListS extends State<SubExerciseList> implements SubExerciseView
 
   void getSelectedIndex() async {
     selectedIndex = await PrefHelper().getDeviceId();
+    setState(() {
+      build(context);
+    });
+  }
+
+  void onSubmit(int result) {
+    PrefHelper().setDeviceId(result);
+    selectedIndex = result;
     setState(() {
       build(context);
     });

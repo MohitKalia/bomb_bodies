@@ -38,6 +38,18 @@ const SUBEXERCISEListDUMMYDATA = const [
       exercise: "Barbell Glutes Bridges", day: 'assets/images/user4.png',
       imageUrl: '10 reps', sets: "3 Sets of supersets"),
   SubExerciseListDummyModel(
+      exercise: "Barbell Glutes Bridges", day: 'assets/images/user4.png',
+      imageUrl: '10 reps', sets: "3 Sets of supersets"),
+  SubExerciseListDummyModel(
+      exercise: "Barbell Glutes Bridges", day: 'assets/images/user4.png',
+      imageUrl: '10 reps', sets: "3 Sets of supersets"),
+  SubExerciseListDummyModel(
+      exercise: "Seated hip abductions", day: 'assets/images/user5.png',
+      imageUrl: '10 reps', sets: "3 Sets of supersets"),
+  SubExerciseListDummyModel(
+      exercise: "Seated hip abductions", day: 'assets/images/user5.png',
+      imageUrl: '10 reps', sets: "3 Sets of supersets"),
+  SubExerciseListDummyModel(
       exercise: "Seated hip abductions", day: 'assets/images/user5.png',
       imageUrl: '10 reps', sets: "3 Sets of supersets"),
 ];
