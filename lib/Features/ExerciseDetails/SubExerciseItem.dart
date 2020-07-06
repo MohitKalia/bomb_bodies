@@ -1,4 +1,5 @@
 
+import 'package:bomb_bodies/BaseUtils/Colour.dart';
 import 'package:bomb_bodies/Features/ExerciseDetails/SubExerciseDummyData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,16 +13,16 @@ class SubExerciseItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 7),
-      padding: EdgeInsets.symmetric(vertical: 22),
+      margin: EdgeInsets.all( 7),
+      padding: EdgeInsets.symmetric(vertical: 13),
       width: double.infinity,
-      height: height * 0.18,
+      height: height * 0.15,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Colors.white,
           shape: BoxShape.rectangle,
           border: Border.all(
-              color: Colors.lightBlueAccent.withOpacity(0.1), width: 2.1)),
+              color: Colors.black.withOpacity(0.2), width: 3)),
       child: Row(
         children: <Widget>[
           Container(
@@ -47,7 +48,7 @@ class SubExerciseItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  width: width - 97,
+                  width: width - 114,
                   padding: EdgeInsets.fromLTRB(30, 6, 10, 6),
                   //color: Colors.green,
                   child: Column(
@@ -65,8 +66,8 @@ class SubExerciseItem extends StatelessWidget {
                         child: Text(
                           SUBEXERCISEDUMMYDATA[index].exercise,
                           style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.black,
+                              fontSize: 16,
+                              color: primaryColors['blue'],
                               fontWeight: FontWeight.bold),
                         ),
                         margin: EdgeInsets.only(bottom: 3),
@@ -76,7 +77,7 @@ class SubExerciseItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         softWrap: true,
-                        style: TextStyle(fontSize: 10, color: Colors.grey[700]),
+                        style: TextStyle(fontSize: 12, color: primaryColors['blue']),
                       )
                     ],
                   ),

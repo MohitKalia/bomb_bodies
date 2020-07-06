@@ -1,3 +1,4 @@
+import 'package:bomb_bodies/BaseUtils/Colour.dart';
 import 'package:bomb_bodies/BaseUtils/PrefHelper.dart';
 import 'package:bomb_bodies/Features/ExerciseDetails/SubExercisePresenter.dart';
 import 'package:bomb_bodies/Features/ExerciseDetails/SubExerciseView.dart';
@@ -8,9 +9,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
+import 'longList.dart';
+
 class SubExerciseList extends StatefulWidget {
+  List<LongList> _longList =[];
+  List _exerciseList;
+
+  // todo; dynamic only
+  SubExerciseList();
+  SubExerciseList.dynamic(this._exerciseList);
+
   @override
   SubExerciseListS createState() => SubExerciseListS();
+
 }
 
 class SubExerciseListS extends State<SubExerciseList> implements SubExerciseView {
@@ -21,6 +32,7 @@ class SubExerciseListS extends State<SubExerciseList> implements SubExerciseView
   void initState() {
     getSelectedIndex();
     super.initState();
+//    setupList(widget._exerciseList);  todo,unComment for dynamic data.
     presenter = new SubExercisePresenter();
     presenter.setV(this);
   }
@@ -30,6 +42,7 @@ class SubExerciseListS extends State<SubExerciseList> implements SubExerciseView
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: primaryColors['primaryLight'],
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -38,13 +51,13 @@ class SubExerciseListS extends State<SubExerciseList> implements SubExerciseView
           icon: Icon(
             Icons.keyboard_backspace,
             size: 20,
-            color: Colors.black,
+            color: Theme.of(context).primaryColorDark,
           ),
         ),
         centerTitle: true,
         title: Text(
           'Exercises',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorDark),
         ),
         elevation: 0,
         backgroundColor: Colors.white,
@@ -71,9 +84,11 @@ class SubExerciseListS extends State<SubExerciseList> implements SubExerciseView
           Expanded(
             child: ListView.builder(
                 physics: AlwaysScrollableScrollPhysics(),
-                itemCount: SUBEXERCISEListDUMMYDATA.length,
+                //todo, change dor Dynamic and static data respectively.
+                itemCount: /*widget._longList.length*/SUBEXERCISEListDUMMYDATA.length,
                 itemBuilder: (BuildContext ctx, int index) {
-                  return SubListExerciseItem(screenHeight, screenWidth, index, selectedIndex, onSubmit);
+                  return /*SubListExerciseItem(screenHeight, screenWidth,
+                      index, selectedIndex,onSubmit, widget._longList[index],widget._longList.length);*/ SubListExerciseItem(screenHeight, screenWidth, index, selectedIndex, onSubmit);
                 }),
           ),
         ],
@@ -104,4 +119,34 @@ class SubExerciseListS extends State<SubExerciseList> implements SubExerciseView
       build(context);
     });
   }
+
+  @override
+  void onResponse(val) {
+    // TODO: implement onResponse
+  }
+
+  @override
+  void onResponseError(val) {
+    // TODO: implement onResponseError
+  }
+
+  void setupList(List exerciseList) {
+    for (int i = 0; i < exerciseList.length; i++) {
+      String sets = exerciseList[i]['no_of_sets'];
+      var data = exerciseList[i]['exercises'][0];
+      var set = int.tryParse(sets);
+
+      for (int j = 0; j < set; j++) {
+        widget._longList.add(new LongList(
+            id: data['id'],
+            image: data['image'],
+            name: data['name'],
+            exercise_detail_id: data['exercise_detail_id'],
+            gif_file: data['gif_file'],
+            rep_time: data['rep_time']
+        ));
+      }
+    }
+  }
+
 }

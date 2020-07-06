@@ -20,6 +20,18 @@ class PrefHelper {
   static final String sIsFacebook = "isFacebook";
   static final String sHouseNo = "sHouseNo";
   static final String sStreetName = "sStreetName";
+  static final String EQUIPMENTS = 'EquipMEnts';
+
+  void setEquipments(String equipments) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString(EQUIPMENTS, equipments);
+  }
+
+  Future<String> getEquipments() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getString(EQUIPMENTS);
+  }
+
 
   void setDeviceId(deviceId) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();

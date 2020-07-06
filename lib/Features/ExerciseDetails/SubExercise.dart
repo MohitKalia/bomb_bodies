@@ -1,11 +1,18 @@
+import 'package:bomb_bodies/BaseUtils/Colour.dart';
+import 'package:bomb_bodies/BaseUtils/GlobalUtils.dart';
+import 'package:bomb_bodies/BaseUtils/PrefHelper.dart';
 import 'package:bomb_bodies/Features/ExerciseDetails/SubExercisePresenter.dart';
 import 'package:bomb_bodies/Features/ExerciseDetails/SubExerciseView.dart';
 import 'package:bomb_bodies/Features/SubExrciseList/SubExerciseList.dart';
+import 'package:bomb_bodies/Features/SubExrciseList/SubExerciseListDummyData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import 'SubExerciseDummyData.dart';
 import 'SubExerciseItem.dart';
 
 class SubExercise extends StatefulWidget {
@@ -15,12 +22,29 @@ class SubExercise extends StatefulWidget {
 
 class SubExerciseS extends State<SubExercise> implements SubExerciseView {
   SubExercisePresenter presenter;
+  bool load = false;
+  var headerData = {};
+  List _exerciseList = [];
 
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     presenter = new SubExercisePresenter();
     presenter.setV(this);
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (!load) {
+      load = true;
+      var id = ModalRoute.of(context).settings.arguments as String;
+     // presenter.loadExercises(id);
+    }
+    super.didChangeDependencies();
   }
 
   @override
@@ -28,12 +52,12 @@ class SubExerciseS extends State<SubExercise> implements SubExerciseView {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: primaryColors['primaryLight'],
       body: Column(
         children: <Widget>[
           Container(
             width: double.infinity,
             height: screenHeight * 0.40,
-            decoration: BoxDecoration(),
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: <Widget>[
@@ -41,8 +65,10 @@ class SubExerciseS extends State<SubExercise> implements SubExerciseView {
                   margin: EdgeInsets.only(bottom: 25),
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/images/header3.png'), fit: BoxFit.fill),
-                      borderRadius: BorderRadius.vertical(bottom: Radius.circular(40))),
+                          image: AssetImage('assets/images/header3.png'),
+                          fit: BoxFit.fill),
+                      borderRadius:
+                      BorderRadius.vertical(bottom: Radius.circular(40))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -71,7 +97,7 @@ class SubExerciseS extends State<SubExercise> implements SubExerciseView {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Booty Building',
+                                  headerData.isEmpty ? "Booty building": headerData['exercise_name'],
                                   style: TextStyle(
                                       fontSize: 24,
                                       color: Colors.white,
@@ -93,9 +119,9 @@ class SubExerciseS extends State<SubExercise> implements SubExerciseView {
                                   margin: EdgeInsets.symmetric(vertical: 3),
                                 ),
                                 Text(
-                                  'Barbell, bentch, '
-                                  'dumbblles',
-                                  style: TextStyle(fontSize: 10, color: Colors.white),
+                                  headerData.isEmpty?"barbell, bench dumbells":headerData['equipments'],
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.white),
                                   textAlign: TextAlign.start,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -110,17 +136,25 @@ class SubExerciseS extends State<SubExercise> implements SubExerciseView {
                 ),
                 RaisedButton(
                   onPressed: () {
+                    //todo, static data
                     Navigator.of(context).push(new MaterialPageRoute(
                         builder: (BuildContext context) => SubExerciseList()));
+
+                    //todo, dynamic data
+                    /*Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (BuildContext context) => SubExerciseList.dynamic(_exerciseList)));*/
                   },
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
                   padding: EdgeInsets.symmetric(
                       horizontal: screenWidth > 400 ? 60 : 40,
                       vertical: screenWidth > 400 ? 10 : 5),
-                  color: Colors.pink[300],
+                  color: Theme.of(context).primaryColorDark,
                   child: Text(
                     'Start Workout',
-                    style: TextStyle(color: Colors.white, fontSize: screenWidth > 400 ? 20 : 15),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth > 400 ? 20 : 15),
                   ),
                 )
               ],
@@ -137,7 +171,10 @@ class SubExerciseS extends State<SubExercise> implements SubExerciseView {
               children: [
                 Text(
                   "Exercises",
-                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+                  style: TextStyle(
+                      color: primaryColors['blue'] ,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22),
                 ),
                 SizedBox(
                   width: 5,
@@ -145,7 +182,7 @@ class SubExerciseS extends State<SubExercise> implements SubExerciseView {
                 Expanded(
                   flex: 1,
                   child: Divider(
-                    color: Colors.grey,
+                    color: Theme.of(context).primaryColorDark,
                     height: 1.5,
                     thickness: 1,
                   ),
@@ -154,11 +191,13 @@ class SubExerciseS extends State<SubExercise> implements SubExerciseView {
             ),
           ),
           Expanded(
-            child: ListView.builder(
+            // todo, unComment below for dynamic data
+            child: /*showLoader? Center(child: CircularProgressIndicator()) : _exerciseList.length == 0 ? Center(child:Text('No Data available')) :*/ListView.builder(
                 physics: AlwaysScrollableScrollPhysics(),
-                itemCount: 4,
+                itemCount: SUBEXERCISEDUMMYDATA.length,/*todo,  _exerciseList.length*/
                 itemBuilder: (BuildContext ctx, int index) {
-                  return SubExerciseItem(screenHeight, screenWidth, index);
+                  /* todo, for dynamic, -> var inners = _exerciseList[index]['exercises'][0];*/
+                  return SubExerciseItem(screenHeight, screenWidth,index);
                 }),
           ),
         ],
@@ -174,4 +213,28 @@ class SubExerciseS extends State<SubExercise> implements SubExerciseView {
 
   @override
   bool showLoader;
+
+  @override
+  void onResponse(val) {
+    _exerciseList.clear();
+    headerData.clear();
+    print('SubExercise___$val\n\n');
+    PrefHelper().setEquipments(val['equipments']);
+    setState(() {
+      _exerciseList.addAll(val['inner_exercises'] as List);
+      headerData.addAll(val);
+    });
+
+  }
+
+  @override
+  void onResponseError(val) {
+    if(val.toString() == 'empty'){
+      setState(() {
+        _exerciseList.clear();
+      });
+    }else {
+      GlobalUtils.errorMessage(val.toString());
+    }
+  }
 }

@@ -1,29 +1,46 @@
 import 'package:bomb_bodies/Features/ExerciseList/Exercise.dart';
-import 'package:bomb_bodies/Features/Home/DummyData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class HomeRowItems extends StatelessWidget {
   final int index;
+  final Map item;
+  final int pointer;
+  static const backgroundImages = [
+    'assets/backImages/02.png',
+    'assets/backImages/04.png',
+    'assets/backImages/06.png'
+  ];
 
-  HomeRowItems(this.index);
+  HomeRowItems(this.index, this.item, this.pointer);
 
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
       color: Colors.white,
       onPressed: () {
-        if (index == 0) {
+        // todo, CHANGE THIS.
+        {
           Navigator.of(context).push(new MaterialPageRoute(
-              builder: (BuildContext context) => Exercise()));
+              builder: (
+                  BuildContext context,
+                  ) =>
+                  Exercise(),
+              settings: RouteSettings(arguments: item['id'].toString())));
         }
       },
       child: Container(
         width: double.infinity,
-        height: MediaQuery.of(context).size.height * 0.22,
+        margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        height: MediaQuery.of(context).size.height * 0.20,
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage(DUMMYDATA[index].imageUrl)),
+          image: DecorationImage(
+            image: AssetImage(
+              backgroundImages[pointer],
+            ),
+            fit: BoxFit.fill,
+          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,7 +54,7 @@ class HomeRowItems extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      '${DUMMYDATA[index].exercise}',
+                      '${item['name']}',
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -51,6 +68,13 @@ class HomeRowItems extends StatelessWidget {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 1, 5, 0),
+              child: Image.network(
+                item['workout_image'],
+                fit: BoxFit.contain,
+              ),
+            )
           ],
         ),
       ),

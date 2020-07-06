@@ -17,23 +17,23 @@ class ExerciseItem extends StatefulWidget {
 class ExerciseItemS extends State<ExerciseItem> {
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return GestureDetector(
       child: Container(
-        margin: EdgeInsets.only(bottom: 7),
-        padding: EdgeInsets.symmetric(vertical: 22),
+        margin: EdgeInsets.all(7),
+        padding: EdgeInsets.symmetric(vertical: 16),
         width: double.infinity,
-        height: widget.height * 0.18,
+        height: widget.height * 0.16,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
             shape: BoxShape.rectangle,
-            border: Border.all(color: Colors.lightBlueAccent.withOpacity(0.1), width: 2.1)),
+            border: Border.all(color: Colors.black.withOpacity(0.2), width: 3)),
         child: Row(
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(right: 10),
               alignment: Alignment.centerLeft,
-              width: widget.width * 0.20,
+              width: widget.width * 0.16,
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(EXERCISEDUMMYDATA[widget.index].day), fit: BoxFit.fill),
@@ -50,7 +50,7 @@ class ExerciseItemS extends State<ExerciseItem> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    width: widget.width - 137,
+                    width: widget.width - 156,
                     padding: EdgeInsets.fromLTRB(20, 6, 10, 6),
                     //color: Colors.green,
                     child: Column(
@@ -61,7 +61,7 @@ class ExerciseItemS extends State<ExerciseItem> {
                           child: Text(
                             EXERCISEDUMMYDATA[widget.index].exercise,
                             style: TextStyle(
-                                fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
+                                fontSize: 16, color: primaryColors['blue'], fontWeight: FontWeight.bold),
                           ),
                           margin: EdgeInsets.only(bottom: 3),
                         ),
@@ -70,7 +70,7 @@ class ExerciseItemS extends State<ExerciseItem> {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           softWrap: true,
-                          style: TextStyle(fontSize: 10, color: Colors.grey[700]),
+                          style: TextStyle(fontSize: 12, color: primaryColors['blue']),
                         )
                       ],
                     ),
@@ -94,9 +94,7 @@ class ExerciseItemS extends State<ExerciseItem> {
           ],
         ),
       ),
-      color: Colors.white,
-      padding: EdgeInsets.all(5),
-      onPressed: () {
+      onTap: () {
         if (widget.index == 0) {
           PrefHelper().setFirstName(EXERCISEDUMMYDATA[widget.index].exercise);
           Navigator.of(context)
