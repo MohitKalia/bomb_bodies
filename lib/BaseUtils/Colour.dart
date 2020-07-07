@@ -7,5 +7,6 @@ const primaryColors = {
   "grey_medium": Color.fromRGBO(210, 210, 210, 1),
   "grey": Color.fromRGBO(200, 200, 200, 1),
   "blue": Color.fromRGBO(45, 89, 191, 1),
-  "bluelight": Color.fromRGBO(45, 89, 191, 0.7)
+  "bluelight": Color.fromRGBO(45, 89, 191, 0.7),
+  "primaryLight": Color.fromRGBO(232, 244, 248, 1),
 };

@@ -31,7 +31,7 @@ class SubListExerciseItemState extends State<SubListExerciseItem> {
               borderRadius: BorderRadius.circular(15),
               color: Colors.white,
               shape: BoxShape.rectangle,
-              border: Border.all(color: Colors.black.withOpacity(0.2), width: 3)),
+              border: Border.all(color: Colors.black.withOpacity(0.1), width: 3)),
           child: Row(
             children: <Widget>[
               Container(
@@ -89,7 +89,7 @@ class SubListExerciseItemState extends State<SubListExerciseItem> {
                             maxLines: 1,
                             softWrap: true,
                             style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 14,
                                 fontWeight: widget.selectedIndex == widget.index
                                     ? FontWeight.w800
                                     : FontWeight.w400,

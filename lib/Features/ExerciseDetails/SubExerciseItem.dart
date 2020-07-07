@@ -22,7 +22,7 @@ class SubExerciseItem extends StatelessWidget {
           color: Colors.white,
           shape: BoxShape.rectangle,
           border: Border.all(
-              color: Colors.black.withOpacity(0.2), width: 3)),
+              color: Colors.black.withOpacity(0.1), width: 3)),
       child: Row(
         children: <Widget>[
           Container(
@@ -60,7 +60,7 @@ class SubExerciseItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         softWrap: true,
-                        style: TextStyle(fontSize: 12, color: Colors.black),
+                        style: TextStyle(fontSize: 14, color: Colors.black),
                       ),
                       Container(
                         child: Text(
@@ -77,7 +77,7 @@ class SubExerciseItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         softWrap: true,
-                        style: TextStyle(fontSize: 12, color: primaryColors['blue']),
+                        style: TextStyle(fontSize: 14, color: primaryColors['blue']),
                       )
                     ],
                   ),

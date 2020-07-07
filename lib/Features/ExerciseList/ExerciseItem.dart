@@ -27,11 +27,11 @@ class ExerciseItemS extends State<ExerciseItem> {
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
             shape: BoxShape.rectangle,
-            border: Border.all(color: Colors.black.withOpacity(0.2), width: 3)),
+            border: Border.all(color: Colors.black.withOpacity(0.1), width: 3)),
         child: Row(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(right: 10),
+              margin: EdgeInsets.only(right: 0),
               alignment: Alignment.centerLeft,
               width: widget.width * 0.16,
               decoration: BoxDecoration(
@@ -70,7 +70,7 @@ class ExerciseItemS extends State<ExerciseItem> {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           softWrap: true,
-                          style: TextStyle(fontSize: 12, color: primaryColors['blue']),
+                          style: TextStyle(fontSize: 14, color: primaryColors['blue']),
                         )
                       ],
                     ),
@@ -87,7 +87,8 @@ class ExerciseItemS extends State<ExerciseItem> {
                         size: 15,
                       ),
                     ),
-                  )
+                  ),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 5),)
                 ],
               ),
             )
